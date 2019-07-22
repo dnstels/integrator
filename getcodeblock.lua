@@ -2,7 +2,7 @@
 -- It selects <source /> blocks from the files of the mediawiki
 -- form and compiles a script from it which can then be executed.
 --
--- Invoke with: pandoc -t getcodeblock.lua -f mediawiki
+-- Invoke with: pandoc -t getcodeblock.lua -f mediawiki -M lang:lang_name
 --
 -- Note:  you need not have lua installed on your system to use this
 -- custom writer.  However, if you do have lua installed, you can
@@ -171,7 +171,11 @@ function LineBlock(ls)
 end
 
 function CodeBlock(s, attr)
-   return s .."\n"
+   if meta.lang == attr.class then
+      return s .."\n"
+   else
+      return ""
+   end
 end
 
 function BulletList(items)
